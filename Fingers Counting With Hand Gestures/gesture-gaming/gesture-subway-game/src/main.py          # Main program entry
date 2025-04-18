@@ -1,0 +1,61 @@
+import cv2
+import mediapipe as mp
+import pyautogui
+import time
+from hand_detector import HandDetector
+from game import Game
+
+def main():
+    # Initialize hand detector and game
+    detector = HandDetector()
+    game = Game()
+    
+    # Start the game
+    game.start()
+    
+    # Cooldown to prevent rapid-fire inputs
+    last_action_time = 0
+    cooldown = 0.5  # seconds
+    
+    cap = cv2.VideoCapture(0)
+    
+    while True:
+        # Get frame
+        success, img = cap.read()
+        if not success:
+            break
+            
+        # Flip image for mirror effect
+        img = cv2.flip(img, 1)
+        
+        # Find hands and count fingers
+        img = detector.find_hands(img)
+        finger_count = detector.count_fingers()
+        
+        # Execute game action with cooldown
+        current_time = time.time()
+        if current_time - last_action_time >= cooldown:
+            if finger_count in game.controls:
+                game.perform_action(game.controls[finger_count])
+                last_action_time = current_time
+        
+        # Display info on screen
+        cv2.putText(img, f'Fingers: {finger_count}', (10, 70), 
+                    cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
+        
+        # Show controls guide
+        cv2.putText(img, "1: Jump | 2: Roll | 3: Right | 4: Left", (10, 30),
+                    cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
+        
+        # Show image
+        cv2.imshow("Gesture Subway Game", img)
+        
+        # Exit on 'q' press
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cap.release()
+    cv2.destroyAllWindows()
+
+if __name__ == "__main__":
+    main()

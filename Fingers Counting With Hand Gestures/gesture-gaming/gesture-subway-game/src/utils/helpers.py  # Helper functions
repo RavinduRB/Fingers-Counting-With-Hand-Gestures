@@ -1,0 +1,29 @@
+def preprocess_image(image):
+    """Preprocess the image for hand detection."""
+    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    return image_rgb
+
+def draw_hand_landmarks(image, hand_landmarks):
+    """Draw hand landmarks on the image."""
+    mp_draw.draw_landmarks(image, hand_landmarks, mp_hands.HAND_CONNECTIONS)
+
+def get_gesture_from_fingers(finger_count):
+    """Map the number of fingers to a specific gesture."""
+    gesture_mapping = {
+        1: 'jump',
+        2: 'roll',
+        3: 'move_right',
+        4: 'move_left'
+    }
+    return gesture_mapping.get(finger_count, None)
+
+def is_within_bounds(value, min_value, max_value):
+    """Check if a value is within specified bounds."""
+    return min_value <= value <= max_value
+
+def calculate_finger_angle(landmarks, finger_tip_id, finger_base_id):
+    """Calculate the angle between the finger tip and base."""
+    tip = landmarks[finger_tip_id]
+    base = landmarks[finger_base_id]
+    angle = math.atan2(tip.y - base.y, tip.x - base.x)
+    return angle
