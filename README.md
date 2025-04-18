@@ -9,21 +9,20 @@ https://github.com/user-attachments/assets/6d478a63-9e1a-4ffd-8d90-96f3eb7574b1
 
 
 ### ❄️Key Features
-- Python
-- OpenCV – For image capturing and processing.
-- MediaPipe – For advanced hand landmark detection and gesture recognition.
-- Webcam – For capturing real-time video input.
-- CV2 Drawing Utils – For visualizing hand landmarks
-- Time module – For managing cooldowns between actions
+- Real time video capture and processing.
+- Finger Counting Algorithm to recognize the number of fingers shown.
+- Accurate finger detection using MediaPipe.
+- Dynamic gesture recognition for one handtween actions.
 
 ---
 
 ### 🌍 Tech Stack:
-- **Python 3**
-- **OpenCV (cv2)** – for real-time video processing
-- **NumPy** – for matrix operations and filter effects
-- **Tkinter** – for GUI development
-- **PIL (Pillow)** – to convert OpenCV images for display in Tkinter
+- Python
+- OpenCV – For image capturing and processing.
+- MediaPipe – For advanced hand landmark detection and gesture recognition.
+- Webcam – For capturing real-time video input.
+- CV2 Drawing Utils – For visualizing hand landmarks.
+- Time module – For managing cooldowns between actions.
 
 ---
 
